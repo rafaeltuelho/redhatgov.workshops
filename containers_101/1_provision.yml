@@ -7,7 +7,3 @@
   hosts: local_target
   roles:
   - { role: aws.infra, tags: ["tf_create"] }
-
-# {{workshop_prefix}}.tower.<student number>.redhatgov.io:8888
-# Username: ec2-user
-# Password: redhat!@#

@@ -38,14 +38,14 @@
 #-------------------------------------------------------
 - name: Copy cert.pem to Wetty dir
   become: yes
-  command: cp cert.pem /home/{{ system_user }}/.ssh/ chdir="/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname]['ec2_tag_Index'] }}.{{ domain_name }}/"  
+  command: cp cert.pem /home/{{ system_user }}/.ssh/ chdir="/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags }}.{{ domain_name }}/"  
   args:
     creates: /home/{{ system_user }}/.ssh/cert.pem
   when: letsencrypt
 
 - name: Copy privkey.pem to Wetty dir
   become: yes
-  command: cp privkey.pem /home/{{ system_user }}/.ssh/ chdir="/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname]['ec2_tag_Index'] }}.{{ domain_name }}/" 
+  command: cp privkey.pem /home/{{ system_user }}/.ssh/ chdir="/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags }}.{{ domain_name }}/" 
   args:
     creates: /home/{{ system_user }}/.ssh/privkey.pem
   when: letsencrypt

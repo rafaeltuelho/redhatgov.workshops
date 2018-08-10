@@ -12,7 +12,7 @@ extra_vars.yml
 .vault.yml
 vault.yml
 group_vars/vault.yml
-group_vars/all
+*/group_vars/all
 env.sh
 *~
 \#*#
