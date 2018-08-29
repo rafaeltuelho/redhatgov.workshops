@@ -2,19 +2,31 @@
 - name: Gather EC2 instance metadata
   action: ec2_metadata_facts
   register: ec2_facts
+  when: email
+  tags:
+    - email
 
 - name: Get resource tags from ec2 facts
   become: False
   local_action: ec2_tag resource={{ec2_facts.ansible_facts.ansible_ec2_instance_id}} region={{ec2_facts.ansible_facts.ansible_ec2_placement_region}} state=list
   register: ec2_tags
+  when: email
+  tags:
+    - email
 
 #- name: Display raw ec2_tags
 #  debug:
 #    var: ec2_tags
+#  when: email
+#  tags:
+#    - email
 
 #- name: Display all variables/facts known for a host
 #  debug:
 #    var: hostvars[inventory_hostname].ec2_tags.tags
+#  when: email
+#  tags:
+#    - email
 
 - name: Send email to students with inventory attached
   become: False

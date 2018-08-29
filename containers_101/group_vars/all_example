@@ -9,8 +9,6 @@
 # Ensure that the name does not include special characters such as underscores, etc.
 workshop_prefix:                  "containers101"
 
-
-
 ################################################################################
 # ANSIBLE ROLE KEY         |      VALUE
 ################################################################################
@@ -20,7 +18,7 @@ terraform_working_dir:            "{{ lookup('env','PWD') }}/.redhatgov"
 aws_access_key:                   ""
 aws_secret_key:                   ""
 # aws.infra                |      AWS Route 53
-domain_name:                      ""
+domain_name:                      "workshops.redhatbr.io"
 zone_id:                          ""
 # aws.infra                |      AWS Terraform Vars
 #number_tower_nodes:               "2"            # Tower Nodes
@@ -37,6 +35,8 @@ ebs_root_block_size:              50
 # us-east-2
 # ami_id:                         "ami-cfdafaaa" # RHEL 7.4 
 # ami_id:                         "ami-8f2617ea" # RHEL 7.5 
+# SA-east-1
+ami_id:                           "ami-0a419d7f7b8b07b64" # RHEL 7.5
 #-------------------------------------------------------------------------------
 # subscription_manager     |      Red Hat Subscription via Cloud Access
 cloud_access:                      true
@@ -53,8 +53,24 @@ letsencrypt_email:                "someone@redhat.com"
 letsencrypt:                      false
 #--------------------------------------------------------------------------------------
 # wetty                    |      password
-workshop_password:                "redhat!@#"
+workshop_password:                "workshop"
+wetty_port:                       8888
+wetty_user:                       "ec2-user"
 #--------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------
+# sendgrid
+sendgrid_user:                ""
+sendgrid_pass:                ""
+sendgrid_api_key:             ""
+instructor_email:             ""
+email:                        no
+
+student_emails:
+  - name:          "Student 1"
+    email:         "student@mail.com"
+#--------------------------------------------------------------------------------------
+
 
 ################################################################################
 # ANSIBLE config           |      VALUE
@@ -70,4 +86,3 @@ system_user:                      "ec2-user"    # AWS
 #codiad_users:
 #- { name: "ec2-user", pass: "0a161200ebeadfd24001682f05f16359b74bb55f" }
 # system_user:                     "vagrant"    # vagrant
-    

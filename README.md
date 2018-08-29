@@ -9,7 +9,7 @@ To use this project, you'll need (at minimum):
 #### GNU/Linux, or macOS
 
 ```sh
-git clone https://github.com/RedHatGov/redhatgov.workshops
+git clone https://github.com:rafaeltuelho/redhatgov.workshops
 cd redhatgov.workshops
 ```
 

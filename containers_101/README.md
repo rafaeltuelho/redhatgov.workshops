@@ -1,7 +1,5 @@
 # Containers 101 Workshop
 
-![ansible](img/Ansible-Tower-Logotype-Large-RGB-FullGrey-300x124.png)
-
 `containers_101` is an ansible playbook to provision student container host nodes in AWS. This playbook uses Ansible to wrap Terraform, for provisioning AWS infrastructure and nodes. To find more info about Terraform [check here](https://www.terraform.io/docs/providers/aws/index.html)
 
 These modules all require that you have AWS API keys available to use to provision AWS resources. You also need to have IAM permissions set to allow you to create resources within AWS. There are several methods for setting up you AWS environment on you local machine.
@@ -18,10 +16,7 @@ This repo also requires that you have Ansible installed on your local machine. F
 
 This repo also requires that Terraform be installed if you are using the aws.infra.terraform role. For the most upto data methods of installing Terraform for your operating system [check here](https://www.terraform.io/downloads.html).
 
-
-
 ## AWS Infrastructure Roles
-
 
 ### roles/aws.infra.terraform
 
@@ -58,19 +53,12 @@ sudo unzip terraform_0.11.7_linux_amd64.zip -d /usr/local/bin terraform
 
 Then edit `group_vars/all` and fill in the vars with your AWS api info. This role can also provide easy domain name mapping to all the instances if you have a domain registered in AWS Route 53.  You can get the zone ID from the DNS domain stored in Route 53.
 
-
 ```
 #####################################################
 # Domain Name you own
 #####################################################
 domain_name: ""
 zone_id: ""
-
-#####################################################
-# AWS API Keys for terraform.tfvars file
-#####################################################
-aws_access_key: ""
-aws_secret_key: ""
 ```
 
 #### Configure Workshop Nodes
@@ -79,13 +67,13 @@ To install and configure the necessary software, on the newly created nodes, run
 
 ```
 ansible-playbook 1_provision.yml  
-ansible-playbook 2_load.yml -K
+ansible-playbook -i inventory/hosts 2_load.yml -K
 ```
 
 #### To destroy the workshop environment
 
 ```
-ansible-playbook 3_unregister.yml 
+ansible-playbook -i inventory/hosts 3_unregister.yml 
 rm -rf .redhatgov
 ```
 
@@ -96,12 +84,6 @@ Browse to the URL of the EC2 instance and enter the `ec2-user`'s username and pa
 ```
 https://{{ workshop_prefix }}.node.0.{{ domain_name }}:8888/wetty/ssh/ec2-user
 ```
-
-![Tower Login](img/ansible-tower.png)
-
-There is a web-based IDE running on port 8443 of each tower node.  That IDE can be used to edit Ansible playbooks, rather than using a command line editor, like `vim` or `nano`.
-
-![Codiad Login](img/codiad.png)
 
 ## Walkthrough for Scripts
 
