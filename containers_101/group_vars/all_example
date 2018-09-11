@@ -17,9 +17,11 @@ terraform_working_dir:            "{{ lookup('env','PWD') }}/.redhatgov"
 # aws.infra                |      AWS API KEYS
 aws_access_key:                   ""
 aws_secret_key:                   ""
+shared_route53_aws_access_key:    "{{ lookup('env','SHARED_ROUTE53_AWS_ACCESS_KEY_ID') }}"
+shared_route53_aws_secret_key:    "{{ lookup('env','SHARED_ROUTE53_AWS_SECRET_ACCESS_KEY') }}"
 # aws.infra                |      AWS Route 53
 domain_name:                      "workshops.redhatbr.io"
-zone_id:                          ""
+zone_id:                          "Z1TGF6AGBYJ56B"
 # aws.infra                |      AWS Terraform Vars
 number_nodes:                     "2"            # Student Nodes
 node_instance_type:               "t2.small"     # Student Instance Size
@@ -28,16 +30,12 @@ ebs_root_block_size:              50
 # aws.infra                |      AWS AMI IDs
 #-------------------------------------------------------------------------------
 # us-east-1
-# ami_id:                         "ami-c998b6b2" # RHEL 7.4
 # ami_id:                         "ami-0d70a070" # RHEL 7.5
-# us-east-2
-# ami_id:                         "ami-cfdafaaa" # RHEL 7.4 
-# ami_id:                         "ami-8f2617ea" # RHEL 7.5 
 # SA-east-1
 ami_id:                           "ami-0a419d7f7b8b07b64" # RHEL 7.5
 #-------------------------------------------------------------------------------
 # subscription_manager     |      Red Hat Subscription via Cloud Access
-cloud_access:                      true
+cloud_access:                     true
 # subscription_manager     |      Red Hat Subscription via username & password
 username:                         ""
 password:                         ""
