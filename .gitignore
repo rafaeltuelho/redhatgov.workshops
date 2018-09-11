@@ -42,6 +42,5 @@ multi_ec2.yaml
 cover/
 vault
 setup.sh.example
-ansible.cfg
 callback_plugins/
-inventory/hosts
+*/inventory/hosts
