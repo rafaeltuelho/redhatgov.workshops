@@ -44,4 +44,4 @@ vault
 setup.sh.example
 ansible.cfg
 callback_plugins/
-#inventory/
+inventory/hosts
