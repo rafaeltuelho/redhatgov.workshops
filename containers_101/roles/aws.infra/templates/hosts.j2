@@ -5,7 +5,7 @@ ansible_become=yes
 localhost  ansible_connection=local  ansible_python_interpreter='/usr/bin/env python'
 
 [nodes]
-{{workshop_prefix}}.[0:{{ number_nodes | int - 1 }}].{{ domain_name }}
+{{workshop_prefix}}.[{{ node_index_offset }}:{{ number_nodes | int - 1 }}].{{ domain_name }}
 
 [all_nodes]
-{{workshop_prefix}}.[0:{{ number_nodes | int - 1 }}].{{ domain_name }}
+{{workshop_prefix}}.[{{ node_index_offset }}:{{ number_nodes | int - 1 }}].{{ domain_name }}

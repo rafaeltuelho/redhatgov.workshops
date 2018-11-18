@@ -1,10 +1,21 @@
 # file: roles/LetsEncrypt/tasks/main.yml
 ---
+- name: Gather EC2 instance metadata
+  action: ec2_metadata_facts
+  register: ec2_facts
+  when: letsencrypt
+
+- name: Get resource tags from ec2 facts
+  become: False
+  local_action: ec2_tag resource={{ec2_facts.ansible_facts.ansible_ec2_instance_id}} region={{ec2_facts.ansible_facts.ansible_ec2_placement_region}} state=list
+  register: ec2_tags
+  when: letsencrypt
+
 - name: Install Certbot Repos
   become: yes
   yum:
     name:  "{{ item }}"
-    state: present  
+    state: present
   with_items:
     - yum-utils
   when: letsencrypt
@@ -12,19 +23,19 @@
 - name: Install Certbot
   become: yes
   yum:
-    name: "certbot" 
+    name: "certbot"
     enablerepo: "{{ item }}"
     state: present
   with_items:
     - rhui-REGION-rhel-server-extras
     - rhui-REGION-rhel-server-optional
-  when: letsencrypt 
-
-- debug: 
-    var: hostvars[inventory_hostname]['ec2_tag_Index']
   when: letsencrypt
 
-- name: Generate Certs tower-node
+#- debug:
+#    var: hostvars[inventory_hostname].ec2_tags.tags.Index
+#  when: letsencrypt
+
+- name: Generate Certs
   become: yes
   command: certbot certonly --standalone \
                             --agree-tos  \
@@ -32,7 +43,7 @@
                             --text \
                             --rsa-key-size 4096 \
                             --email {{ letsencrypt_email }} \
-                            --domains "{{ workshop_prefix | lower }}.tower.{{ hostvars[inventory_hostname]['ec2_tag_Index'] }}.{{ domain_name }}"
+                            --domains "{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags.Index }}.{{ domain_name }}"
   when: letsencrypt
 
 # New certs located at:  /etc/letsencrypt/live/<url>/

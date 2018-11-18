@@ -1,5 +1,13 @@
 # file: roles/wetty/tasks/main.yml
 ---
+- name: Gather EC2 instance metadata
+  action: ec2_metadata_facts
+  register: ec2_facts
+
+- name: Get resource tags from ec2 facts
+  become: False
+  local_action: ec2_tag resource={{ec2_facts.ansible_facts.ansible_ec2_instance_id}} region={{ec2_facts.ansible_facts.ansible_ec2_placement_region}} state=list
+  register: ec2_tags
 
 - name: Install required packages
   become: yes
@@ -13,8 +21,9 @@
 
 - name: Install Wetty Globaly
   become: yes
-  command: npm install wetty -g chdir=/home/{{ system_user }}
+  command: npm install wetty -g
   args:
+    chdir: /home/{{ system_user }}
     creates: /usr/lib/node_modules/wetty/bin/wetty.js
 
 #-------------------------------------------------------
@@ -34,19 +43,21 @@
     src: hterm_all.js-iOS-patch
 
 #-------------------------------------------------------
-# Let's Encrypt. 
+# Let's Encrypt.
 #-------------------------------------------------------
 - name: Copy cert.pem to Wetty dir
   become: yes
-  command: cp cert.pem /home/{{ system_user }}/.ssh/ chdir="/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags }}.{{ domain_name }}/"  
+  command: cp cert.pem /home/{{ system_user }}/.ssh/
   args:
+    chdir: "/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags.Index }}.{{ domain_name }}/"
     creates: /home/{{ system_user }}/.ssh/cert.pem
   when: letsencrypt
 
 - name: Copy privkey.pem to Wetty dir
   become: yes
-  command: cp privkey.pem /home/{{ system_user }}/.ssh/ chdir="/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags }}.{{ domain_name }}/" 
+  command: cp privkey.pem /home/{{ system_user }}/.ssh/
   args:
+    chdir: "/etc/letsencrypt/live/{{ workshop_prefix | lower }}.{{ hostvars[inventory_hostname].ec2_tags.tags.Index }}.{{ domain_name }}/"
     creates: /home/{{ system_user }}/.ssh/privkey.pem
   when: letsencrypt
 
@@ -70,14 +81,15 @@
 
 - name: Set permissions on SSL certs
   become: yes
-  file: 
+  file:
     path:    "/home/{{ system_user }}/.ssh/{{ item }}"
-    group:   "{{ system_user }}"  
+    group:   "{{ system_user }}"
     owner:   "{{ system_user }}"
     mode:    0400
-  with_items: 
+  with_items:
     - cert.pem
     - privkey.pem
+  when: not letsencrypt
 
 # SYSTEMD
 - name: Template Systemd Service File for Wetty
@@ -85,7 +97,7 @@
   template:
     src:   "wetty.service.j2"
     dest:  "/etc/systemd/system/wetty.service"
-    group: root 
+    group: root
     owner: root
     mode:  0644
   notify: wetty
@@ -117,7 +129,7 @@
 # - name: Open port in Firewall 
 #   become: yes
 #   firewalld:
-#     port: 8888/tcp  #"{{ wetty_port }}"
+#     port: "{{ wetty_port }}"/tcp
 #     permanent: true
 #     state: enabled
 
@@ -147,7 +159,7 @@
   iptables:
     action: append
     chain: OS_FIREWALL_ALLOW
-    destination_port: 8888
+    destination_port: "{{ wetty_port }}"
     jump: ACCEPT
     protocol: tcp
     state: present
@@ -159,7 +171,7 @@
   lineinfile:
     path: /etc/sysconfig/iptables
     insertbefore: "^COMMIT$"
-    line: "-A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m udp --dport 8888 -j ACCEPT"
+    line: "-A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m udp --dport {{ wetty_port }} -j ACCEPT"
     state: present
   when:
   - rf_result.rc != 0
@@ -218,10 +230,10 @@
 #
 # - name: Set permissions on repo
 #   become: yes
-#   file: 
+#   file:
 #     recurse: yes
 #     path:    "/home/{{ system_user }}/.wetty"
-#     group:   "{{ system_user }}"  
+#     group:   "{{ system_user }}"
 #     owner:   "{{ system_user }}"
 #     mode:    0700
 #
@@ -232,6 +244,6 @@
 # verify that wetty is running
 #-------------------------------------------------------
 - name: Verify that wetty is listening
-  shell: ncat -v -C --ssl localhost 8888 < /dev/null
+  shell: ncat -v -C --ssl localhost {{ wetty_port }} < /dev/null
   register: wetty_status
   changed_when: "wetty_status.rc != 0"

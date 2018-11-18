@@ -44,3 +44,4 @@ vault
 setup.sh.example
 callback_plugins/
 */inventory/hosts
+log-camel-lsp.out

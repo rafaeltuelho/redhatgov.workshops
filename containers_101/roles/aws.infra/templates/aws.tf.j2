@@ -18,6 +18,7 @@ variable "node_instance_type" { default = "{{ node_instance_type }}" }
 variable "aws_region" { default = "{{ region }}" }
 variable "ebs_root_block_size" { default = "50" }
 variable "aws_node_ami" { default = "{{ ami_id }}" }
+variable "node_index_offset" { default = "{{ node_index_offset }}" }
 variable "number_nodes" { default = "{{ number_nodes }}" }
 
 #----------------------------------------------
@@ -176,11 +177,11 @@ resource "aws_route53_record" "nodes" {
   # same number of records as instances
   count = "${var.number_nodes}"
   zone_id = "{{ zone_id }}"                       
-  name = "{{ workshop_prefix }}.${count.index}"
+  name = "{{ workshop_prefix }}.${count.index + var.node_index_offset}"
   type = "A"
   ttl = "300"
   # matches up record N to instance N
-  records = ["${element(aws_instance.node.*.public_ip, count.index)}"]
+  records = ["${element(aws_instance.node.*.public_ip, count.index + var.node_index_offset)}"]
 }
 output "aws_route53_record nodes" {
   value = "Completed {{ workshop_prefix }}.nodes.{{ domain_name }} using shared_route53 profile"
@@ -202,11 +203,11 @@ resource "aws_instance" "node" {
       volume_size     = "${var.ebs_root_block_size}"
 	  }
     tags {
-        Name     = "{{ workshop_prefix }}-${count.index}"
+        Name     = "{{ workshop_prefix }}-${count.index + var.node_index_offset}"
         Role     = "{{ workshop_prefix }}-node"
         Workshop = "{{ workshop_prefix }}"
         sshUser  = "ec2-user"
-        Index    = "${count.index}"
+        Index    = "${count.index + var.node_index_offset}"
 
     }
 }
