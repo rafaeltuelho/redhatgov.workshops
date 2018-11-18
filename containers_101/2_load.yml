@@ -20,12 +20,12 @@
     - { role: subscription_manager }
     - { role: epel }
 
-#- name: Configure LetsEncrypt on Specified Node
-#  become: yes
-#  remote_user: ec2-user
-#  hosts: le_node
-#  roles:
-#    - { role: LetsEncrypt }
+- name: Configure LetsEncrypt on Specified Node
+  become: yes
+  remote_user: ec2-user
+  hosts: nodes
+  roles:
+    - { role: LetsEncrypt }
 
 - name: Configure software on nodes
   become: yes
