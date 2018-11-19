@@ -62,7 +62,7 @@
   when: letsencrypt
 
 #-------------------------------------------------------
-# Self-Signed Certs 
+# Self-Signed Certs
 #-------------------------------------------------------
 - name: Generate Self Signed Certs
   command: >
@@ -106,9 +106,9 @@
 # pip install passlib
 - name: Set ec2-user password
   become: yes
-  user:   
-    name:      "ec2-user"
-    password:  "{{ workshop_password |password_hash('sha512') }}"   
+  user:
+    name:     "ec2-user"
+    password: "{{ workshop_password | password_hash('sha512') }}"
     state:     present
     append:    yes
 
@@ -119,9 +119,9 @@
     dest: "/etc/ssh/sshd_config"
     group: root
     owner: root
-    mode: 0644 
-  notify: 
-    - sshd  
+    mode: 0644
+  notify:
+    - sshd
 
 #-------------------------------------------------------
 # Firewall settings
@@ -182,12 +182,12 @@
 #-------------------------------------------------------
 - name: Create SELinux dir
   become: yes
-  file: 
+  file:
     group: "{{ system_user }}"
     owner: "{{ system_user }}"
     mode:  0700
     path:  "/home/{{ system_user }}/.selinux"
-    state: directory  
+    state: directory
 
 - name: Copy over SELinux modules for Wetty
   become: yes

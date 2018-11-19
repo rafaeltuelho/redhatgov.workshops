@@ -13,9 +13,9 @@ codiad_timezone: "US/Eastern"
 #codiad_timezone: "US/Mountain"
 #codiad_timezone: "US/Pacific"
 # Here is the list of users.  Use the following algorithm to hash passwords:
-# $ php -r 'print_r(sha(md5("password")));echo "\n";'
-#codiad_users:
-#- { name: "ec2-user", pass: "0a161200ebeadfd24001682f05f16359b74bb55f" }
+# $ php -r 'print_r(sha1(md5("password")));echo "\n";'
+codiad_users:
+- { name: "ec2-user", pass: "55c3b5386c486feb662a0785f340938f518d547f" }
 codiad_version: "HEAD"
 
 # leave these alone
