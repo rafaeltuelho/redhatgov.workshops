@@ -54,11 +54,13 @@ sudo unzip terraform_0.11.7_linux_amd64.zip -d /usr/local/bin terraform
 Then edit `group_vars/all` and fill in the vars with your AWS api info. This role can also provide easy domain name mapping to all the instances if you have a domain registered in AWS Route 53.  You can get the zone ID from the DNS domain stored in Route 53.
 
 ```
-#####################################################
-# Domain Name you own
-#####################################################
-domain_name: ""
-zone_id: ""
+workshop_prefix: "city name where this workshop will be delivered"
+
+domain_name: "name of the DNS domain configured on Route53"
+zone_id: "DNS Host Zone ID on Route53"
+
+node_index_offset:                "1"
+number_nodes:                     "1"           # Student Nodes
 ```
 
 #### Configure Workshop Nodes
@@ -66,14 +68,14 @@ zone_id: ""
 To install and configure the necessary software, on the newly created nodes, run the second playbook.  It may be re-run as many times as necessary.
 
 ```
-ansible-playbook 1_provision.yml  
-ansible-playbook -i inventory/hosts 2_load.yml -K
+ansible-playbook -i inventory 1_provision.yml  
+ansible-playbook -i inventory 2_load.yml -K
 ```
 
 #### To destroy the workshop environment
 
 ```
-ansible-playbook -i inventory/hosts 3_unregister.yml 
+ansible-playbook -i inventory 3_unregister.yml 
 rm -rf .redhatgov
 ```
 
