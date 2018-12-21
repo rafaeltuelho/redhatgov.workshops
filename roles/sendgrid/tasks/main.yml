@@ -33,7 +33,7 @@
   sendgrid:
     api_key:       "{{ sendgrid_api_key | default(omit) }}"
     subject:       "[Red Hat Brasil] Acesso ao seu ambiente de Test Drive"
-    to_addresses:  "{{ student_emails[ hostvars[inventory_hostname].ec2_tags.tags.Index | int ].email }}"
+    to_addresses:  "{{ student_emails[ hostvars[inventory_hostname].ec2_tags.tags.Index|int - node_index_offset|int ].email }}"
     from_address:  "{{ instructor_email }}"
     html_body: yes
     body: |

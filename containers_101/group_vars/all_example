@@ -23,12 +23,12 @@ shared_route53_aws_secret_key:    "{{ lookup('env','SHARED_ROUTE53_AWS_SECRET_AC
 domain_name:                      "workshops.redhatbr.io"
 zone_id:                          "Z1TGF6AGBYJ56B"
 # aws.infra                |      AWS Terraform Vars
-node_index_offset:                "1"            # node index offset
-number_nodes:                     "2"            # Student Nodes
+node_index_offset:                1            # node index offset
+number_nodes:                     2            # Student Nodes
 node_instance_type:               "t2.small"     # Student Instance Size
 region:                           "us-east-1"    # AWS Region, configures ec2.ini too
 ebs_root_block_size:              50
-# aws.infra                |      AWS AMI IDs
+# aws.infra                |      AWS AMI IDs (Get from AWS marketplace. Can be CentOS if you will !!!)
 #-------------------------------------------------------------------------------
 # us-east-1
 ami_id:                         "ami-0d70a070" # RHEL 7.5
@@ -51,7 +51,7 @@ letsencrypt:                      false
 #--------------------------------------------------------------------------------------
 # wetty                    |      password
 workshop_password:                "workshop"
-wetty_port:                       8888
+wetty_port:                       8080
 wetty_user:                       "ec2-user"
 #--------------------------------------------------------------------------------------
 
@@ -65,7 +65,9 @@ email:                        no
 
 student_emails:
   - name:          "Student 1"
-    email:         "student@mail.com"
+    email:         "student1@mail.com"
+  - name:          "Student 2"
+    email:         "student2@mail.com"
 #--------------------------------------------------------------------------------------
 
 
