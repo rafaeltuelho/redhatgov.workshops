@@ -7,10 +7,11 @@
       name: "{{ item }}"
       state: latest
     with_items:
-    - cockpit
-    - cockpit-dashboard
-    - cockpit-shell
-    - cockpit-ws
+      - cockpit
+      - cockpit-dashboard
+      - cockpit-shell
+      - cockpit-ws
+
   - name: Ensure cockpit is started
     service:
       name: cockpit.socket

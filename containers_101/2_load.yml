@@ -5,7 +5,8 @@
 - name: Wait for AWS AMIs to become initialized
   hosts: localhost
   tasks:
-    - wait_for:
+    - name: wait for ssh connection
+      wait_for:
         host: "{{ item }}"
         port: 22
         state: started
@@ -32,10 +33,10 @@
   remote_user: ec2-user
   hosts: nodes
   roles:
+    - { role: common_packages }
     - { role: nodejs }
     - { role: wetty }
     - { role: zsh }
-#    - { role: codiad }
 
 - name: Configure Cockpit
   become: yes

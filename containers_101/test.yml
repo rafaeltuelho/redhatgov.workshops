@@ -3,20 +3,20 @@
 - hosts: localhost
   vars:
     emails:
-      - name:          "aaaaa"
-        email:         "aaaa@mail.com"
-        company:       "A"
+      - name: "aaaaa"
+        email: "aaaa@mail.com"
+        company: "A"
         business_unit: "A"
-        phone:         "(00) 9999-9999"
-      - name:          "bbbbb"
-        email:         "bbb@mail.com"
-        company:       "B"
+        phone: "(00) 9999-9999"
+      - name: "bbbbb"
+        email: "bbb@mail.com"
+        company: "B"
         business_unit: "B"
-        phone:         "(00) 9999-9999"
+        phone: "(00) 9999-9999"
   tasks:
-  - name: loop through list
-    debug:
-      msg: "Item {{item}}: {{ emails[item].name }} {{ emails[item].name }} - {{ansible_date_time.year}}"
-    with_items:
-      - 0
-      - 1
+    - name: loop through list
+      debug:
+        msg: "Item {{item}}: {{ emails[item].name }} {{ emails[item].name }} - {{ansible_date_time.year}}"
+      with_items:
+        - 0
+        - 1

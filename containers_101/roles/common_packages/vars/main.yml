@@ -1,0 +1,8 @@
+---
+# vars file for common_packages
+packages:
+  - atomic-openshift-clients
+  - java-1.8.0-openjdk-devel
+  - maven
+  - nano
+  - vim

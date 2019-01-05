@@ -30,13 +30,11 @@ region:                           "us-east-1"    # AWS Region, configures ec2.in
 ebs_root_block_size:              50
 # aws.infra                |      AWS AMI IDs (Get from AWS marketplace. Can be CentOS if you will !!!)
 #-------------------------------------------------------------------------------
-# us-east-1
-ami_id:                         "ami-0d70a070" # RHEL 7.5
-# SA-east-1
-#ami_id:                           "ami-0a419d7f7b8b07b64" # RHEL 7.5
+# Red Hat Enterprise Linux 7.6 (HVM), SSD Volume Type - ami-011b3ccf1bd6db744 (64-bit x86) 
+ami_id:                         "ami-011b3ccf1bd6db744"
 #-------------------------------------------------------------------------------
 # subscription_manager     |      Red Hat Subscription via Cloud Access
-cloud_access:                     true
+cloud_access:                     false
 # subscription_manager     |      Red Hat Subscription via username & password
 username:                         ""
 password:                         ""

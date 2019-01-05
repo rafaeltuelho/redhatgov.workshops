@@ -1,4 +1,3 @@
 # file: roles/subscription_manager/vars/main.yml
 ---
-#
-# foo: bar
+openshift_version: '3.11'

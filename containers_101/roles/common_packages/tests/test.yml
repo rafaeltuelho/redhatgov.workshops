@@ -1,0 +1,9 @@
+---
+- hosts: nodes
+  remote_user: ec2-user
+  become: yes
+  vars:
+    - ssh_key_path:                     "~/workshops/RedHatGov/redhatgov.workshops/containers_101/.redhatbr/containers101-containers"
+    - ansible_ssh_private_key_file:     "~/workshops/RedHatGov/redhatgov.workshops/containers_101/.redhatbr/containers101-containers"
+  roles:
+    - common_packages

@@ -1,0 +1,7 @@
+---
+# tasks file for common_packages
+- name: Install common packges
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ packages }}"
