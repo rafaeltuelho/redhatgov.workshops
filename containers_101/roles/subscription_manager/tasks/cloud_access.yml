@@ -6,7 +6,7 @@
   shell: yum-config-manager --enable "{{ item }}" --save
   when: cloud_access
   with_items:
-  - rhui-REGION-rhel-server-extras
-  - rhui-REGION-rhel-server-optional
+    - rhui-REGION-rhel-server-extras
+    - rhui-REGION-rhel-server-optional
 #  - rhui-REGION-rhel-server-rhscl
 #  - rhui-REGION-jbeap-7-rhui-rhel-7-rpms

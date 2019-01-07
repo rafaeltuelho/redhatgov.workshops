@@ -15,7 +15,7 @@
 
 - name: Configure repositories on nodes
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   hosts: nodes
   roles:
     - { role: subscription_manager }
@@ -23,14 +23,14 @@
 
 - name: Configure LetsEncrypt on Specified Node
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   hosts: nodes
   roles:
     - { role: LetsEncrypt }
 
 - name: Configure software on nodes
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   hosts: nodes
   roles:
     - { role: common_packages }
@@ -40,21 +40,21 @@
 
 - name: Configure Cockpit
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   hosts: nodes
   roles:
     - { role: cockpit }
 
 - name: Upgrade packages
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   hosts: nodes
   roles:
     - { role: upgrade }
 
 - name: Send email with instructions to Attendees
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   hosts: nodes
   roles:
     - { role: sendgrid }

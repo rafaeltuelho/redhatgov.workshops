@@ -13,5 +13,5 @@
 - name: Unsubscribe RHN
   redhat_subscription:
       state: absent
-  when: not cloud_access
+  when: not cloud_access and ansible_distribution == 'Red Hat Enterprise Linux'
 

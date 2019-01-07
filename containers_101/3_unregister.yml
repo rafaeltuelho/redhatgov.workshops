@@ -5,7 +5,7 @@
 - name: Unregister Nodes
   become: yes
   hosts: all_nodes
-  remote_user: ec2-user
+  remote_user: "{{ system_user }}"
   roles:
     - { role: unregister }
 

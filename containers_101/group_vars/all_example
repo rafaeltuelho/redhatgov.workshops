@@ -30,8 +30,11 @@ region:                           "us-east-1"    # AWS Region, configures ec2.in
 ebs_root_block_size:              50
 # aws.infra                |      AWS AMI IDs (Get from AWS marketplace. Can be CentOS if you will !!!)
 #-------------------------------------------------------------------------------
-# Red Hat Enterprise Linux 7.6 (HVM), SSD Volume Type - ami-011b3ccf1bd6db744 (64-bit x86) 
+# Red Hat Enterprise Linux 7.6 (HVM) (64-bit x86) 
 ami_id:                         "ami-011b3ccf1bd6db744"
+# CentOS 7 (x86_64) - with Updates HVM
+#ami_id:                         "ami-9887c6e7"
+
 #-------------------------------------------------------------------------------
 # subscription_manager     |      Red Hat Subscription via Cloud Access
 cloud_access:                     false
@@ -50,7 +53,7 @@ letsencrypt:                      false
 # wetty                    |      password
 workshop_password:                "workshop"
 wetty_port:                       8080
-wetty_user:                       "ec2-user"
+wetty_user:                       "{{ system_user }}"
 #--------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------
@@ -77,9 +80,6 @@ inventory_working_dir:            "{{ lookup('env','PWD') }}/inventory"
 # Ansible SSH Key Location |      SSH Key Vars
 ssh_key_path:                     "{{ terraform_working_dir }}/{{ workshop_prefix }}-containers"
 ansible_ssh_private_key_file:     "{{ terraform_working_dir }}/{{ workshop_prefix }}-containers"
-system_user:                      "ec2-user"    # AWS
-# Here is the list of users for codiad.  It is suggested to use the same password as you specified as the `workshop_password`, above.  Use the following algorithm to hash passwords:
-# $ php -r 'print_r(sha(md5("password")));echo "\n";'
-#codiad_users:
-#- { name: "ec2-user", pass: "0a161200ebeadfd24001682f05f16359b74bb55f" }
+system_user:                      "ec2-user"  # RHEL AMI
+#system_user:                      "centos"    # CENTOS AMI
 # system_user:                     "vagrant"    # vagrant

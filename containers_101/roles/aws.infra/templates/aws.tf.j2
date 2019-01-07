@@ -206,7 +206,7 @@ resource "aws_instance" "node" {
         Name     = "{{ workshop_prefix }}-${count.index + var.node_index_offset}"
         Role     = "{{ workshop_prefix }}-node"
         Workshop = "{{ workshop_prefix }}"
-        sshUser  = "ec2-user"
+        sshUser  = "{{ system_user }}"
         Index    = "${count.index + var.node_index_offset}"
 
     }

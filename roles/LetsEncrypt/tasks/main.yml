@@ -24,11 +24,7 @@
   become: yes
   yum:
     name: "certbot"
-    enablerepo: "{{ item }}"
     state: present
-  with_items:
-    - rhui-REGION-rhel-server-extras
-    - rhui-REGION-rhel-server-optional
   when: letsencrypt
 
 #- debug:

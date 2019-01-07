@@ -1,8 +1,11 @@
 ---
 # vars file for common_packages
 packages:
-  - atomic-openshift-clients
   - java-1.8.0-openjdk-devel
   - maven
   - nano
   - vim
+
+rhel_oc_client: "atomic-openshift-clients"
+centos_origin_repo: "centos-release-openshift-origin311"
+centos_oc_client: "origin-clients"
