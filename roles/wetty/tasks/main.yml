@@ -107,7 +107,7 @@
 - name: Set ec2-user password
   become: yes
   user:
-    name:     "ec2-user"
+    name:     "{{ system_user }}"
     password: "{{ workshop_password | password_hash('sha512') }}"
     state:     present
     append:    yes
