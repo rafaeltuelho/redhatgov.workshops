@@ -31,9 +31,9 @@ ebs_root_block_size:              50
 # aws.infra                |      AWS AMI IDs (Get from AWS marketplace. Can be CentOS if you will !!!)
 #-------------------------------------------------------------------------------
 # Red Hat Enterprise Linux 7.6 (HVM) (64-bit x86) 
-ami_id:                         "ami-011b3ccf1bd6db744"
+#ami_id:                         "ami-011b3ccf1bd6db744"
 # CentOS 7 (x86_64) - with Updates HVM
-#ami_id:                         "ami-9887c6e7"
+ami_id:                         "ami-9887c6e7"
 
 #-------------------------------------------------------------------------------
 # subscription_manager     |      Red Hat Subscription via Cloud Access
@@ -80,6 +80,6 @@ inventory_working_dir:            "{{ lookup('env','PWD') }}/inventory"
 # Ansible SSH Key Location |      SSH Key Vars
 ssh_key_path:                     "{{ terraform_working_dir }}/{{ workshop_prefix }}-containers"
 ansible_ssh_private_key_file:     "{{ terraform_working_dir }}/{{ workshop_prefix }}-containers"
-system_user:                      "ec2-user"  # RHEL AMI
-#system_user:                      "centos"    # CENTOS AMI
-# system_user:                     "vagrant"    # vagrant
+#system_user:                      "ec2-user"  # RHEL AMI
+system_user:                      "centos"    # CENTOS AMI
+#system_user:                     "vagrant"    # vagrant

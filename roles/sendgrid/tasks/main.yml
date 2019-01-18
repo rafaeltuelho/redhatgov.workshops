@@ -263,9 +263,9 @@
                                                                                        <strong>Password:</strong>
                                                                                    </td>
                                                                                    <td style="text-align:right; vertical-align:top;">
-                                                                                       <strong>https://{{ workshop_prefix }}.{{ hostvars[inventory_hostname].ec2_tags.tags.Index }}.{{ domain_name }}:{{ wetty_port }}/wetty/ssh/ec2-user</strong>
+                                                                                       <strong>https://{{ workshop_prefix }}.{{ hostvars[inventory_hostname].ec2_tags.tags.Index }}.{{ domain_name }}:{{ wetty_port }}/wetty/ssh/{{ system_user }}</strong>
                                                                                        <br>
-                                                                                       <strong>ec2-user</strong>
+                                                                                       <strong>{{ system_user }}</strong>
                                                                                        <br>
                                                                                        <strong>{{ workshop_password }}</strong>
                                                                                    </td>
