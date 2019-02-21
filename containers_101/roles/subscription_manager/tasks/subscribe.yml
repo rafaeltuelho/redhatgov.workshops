@@ -33,6 +33,7 @@
   when: not cloud_access
   tags:
     - rhel
+
 #---------------------------------------------------
 # Subscribe to RHN
 #---------------------------------------------------
@@ -51,6 +52,18 @@
     password: "{{ password }}"
     pool: "{{ pool_id }}"
   when: not cloud_access and sm_result.rc != 0
+  tags:
+    - rhel
+
+- name: Check RHN refresh
+  command: subscription-manager refresh
+  when: not cloud_access
+  tags:
+    - rhel
+
+- name: Check RHN attach
+  command: subscription-manager attach
+  when: not cloud_access
   tags:
     - rhel
 
