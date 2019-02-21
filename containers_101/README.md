@@ -39,14 +39,14 @@ sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noa
 subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-optional-rpms"
 # workstation
 subscription-manager repos --enable="rhel-7-workstation-rpms" --enable="rhel-7-workstation-extras-rpms" --enable="rhel-7-workstation-optional-rpms"
-sudo yum -y install python2-boto ansible
+sudo yum -y install python2-boto3 ansible
 wget https://releases.hashicorp.com/terraform/0.9.11/terraform_0.9.11_linux_amd64.zip # current release as of this date...check to see if a newer version is availabke
 sudo unzip terraform_0.9.11_linux_amd64.zip -d /usr/local/bin terraform
 ```
 
 #### Fedora 25/26/27/28
 ```
-sudo dnf -y install python2-boto ansible
+sudo dnf -y install python2-boto3 ansible
 wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip # current release as of this date...check to see if a newer version is availabke
 sudo unzip terraform_0.11.7_linux_amd64.zip -d /usr/local/bin terraform
 ```

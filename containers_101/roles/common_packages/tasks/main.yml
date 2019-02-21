@@ -10,7 +10,7 @@
   yum:
     name: "{{ rhel_oc_client }}"
     state: present
-  when: ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_distribution == 'RedHat'
 
 - name: Install Origin repo for CentOS
   yum:

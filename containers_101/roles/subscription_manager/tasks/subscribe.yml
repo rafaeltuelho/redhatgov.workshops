@@ -65,11 +65,11 @@
 #---------------------------------------------------
 # Add Required Repositories
 #---------------------------------------------------
-- name: Disable all repos by default
-  command: subscription-manager repos --disable "*"
-  when: not cloud_access
-  tags:
-    - rhel
+#- name: Disable all repos by default
+#  command: subscription-manager repos --disable=*
+#  when: not cloud_access
+#  tags:
+#    - rhel
 
 - name: Enable the requisite rhel7 repos
   command: 'subscription-manager repos \
